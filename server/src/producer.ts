@@ -1,7 +1,7 @@
 import console from "console";
 import { Queue } from "bullmq";
 import connection from "./config/redis.ts";
-const myQueue = new Queue('queue_name', { connection });
+const myQueue = new Queue('test-queue', { connection });
 
 async function init(){
     const res= await myQueue.add('email',{
