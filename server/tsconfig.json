@@ -19,6 +19,7 @@
     // Safety features
     "strict": false,
     "noUncheckedIndexedAccess": true,
+    "strictNullChecks": true,
     "exactOptionalPropertyTypes": true,
 
     // Project structure
