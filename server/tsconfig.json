@@ -1,44 +1,38 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "target": "ES2020",
+    "module": "CommonJS",
 
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
+    // Enables "import x from"
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Node environment
     "types": ["node"],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
+    "resolveJsonModule": true,
 
-    // Other Outputs
+    // Output controls
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
+    "declarationMap": false,
 
-    // Stricter Typechecking Options
+    // Safety features
+    "strict": false,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
+    // Project structure
+    "rootDir": "./src",
+    "outDir": "./dist",
 
-    // Recommended Options
-    "strict": false,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
+    // Performance / stability
     "skipLibCheck": true,
-  }
+    "isolatedModules": false,
+
+    // Required for TS + ts-node stability
+    "moduleResolution": "node"
+  },
+
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
