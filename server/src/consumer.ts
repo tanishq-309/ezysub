@@ -1,4 +1,6 @@
 import { Worker } from "bullmq";
+import console from "console";
+import connection from "./config/redis.ts";
 
 new Worker(
   "translate",
@@ -6,5 +8,5 @@ new Worker(
     console.log("Received job:", job.id);
     // your translation logic
   },
-  { connection: client }
+  { connection: connection }
 );
