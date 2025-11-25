@@ -1,9 +1,8 @@
-import "dotenv/config";
-import Redis from "ioredis";
+import IORedis from 'ioredis';
+import { env } from './env.ts';
 
-const connection = new Redis(process.env.REDIS_URL as string);
+const connection = new IORedis(env.REDIS_URL, {
+  maxRetriesPerRequest: null, 
+});
 
 export default connection;
-
-// require("dotenv").config();
-// console.log("Loaded REDIS_URL =", process.env.REDIS_URL);
