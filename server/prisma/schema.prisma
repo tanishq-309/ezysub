@@ -24,6 +24,7 @@ model Job {
   targetLang      String
   modelUsed       String   // e.g., "gemini-1.5-flash"
   status          JobStatus @default(PENDING)
+  errorMessage    String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }

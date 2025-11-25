@@ -31,7 +31,10 @@
     "isolatedModules": false,
 
     // Required for TS + ts-node stability
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    
   },
 
   "include": ["src"],

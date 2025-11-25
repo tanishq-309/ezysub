@@ -11,11 +11,11 @@ export const getUploadUrlSchema = z.object({
       .min(1, "Filename is required")
       .regex(/\.(srt|vtt|txt)$/i, "Invalid file type. Only .srt, .vtt, and .txt are supported."),
     
-    // Strictly enforce 2-letter ISO codes (e.g., 'en', 'es', 'jp')
+    // Strict enforce 2-letter ISO codes such as en, es, jp
     targetLang: z.string()
       .length(2, "Target language must be a 2-letter ISO code (e.g., 'es', 'fr')"),
     
-    // Whitelist allowed AI models. If they send "gpt-4", it will fail here.
+    // allowed models
     model: z.enum(['gemini-1.5-flash', 'gemini-1.5-pro'])
       .default('gemini-1.5-flash'),
   }),
@@ -32,6 +32,6 @@ export const confirmUploadSchema = z.object({
 });
 
 // Export TypeScript types inferred from the Zod schemas
-// This gives you auto-completion in your Controller!
+// This gives auto completion in controller
 export type GetUploadUrlInput = z.infer<typeof getUploadUrlSchema>['body'];
 export type ConfirmUploadInput = z.infer<typeof confirmUploadSchema>['body'];
