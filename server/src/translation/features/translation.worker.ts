@@ -1,7 +1,7 @@
 import { Job } from 'bullmq';
-import { GoogleGenerativeAI } from '@google/genai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
-import { TranslationJobData } from './translation.types.ts';
+import type { TranslationJobData } from './translation.types.ts';
 import { prisma } from '../../lib/prisma.ts';
 import { s3Client } from '../../lib/s3.ts';
 import { env } from '../../config/env.ts';
@@ -81,19 +81,20 @@ export const translationProcessor = async (job: Job<TranslationJobData>) => {
 
     // 3. Execute Translation
     logger.info({ jobId, model: geminiModelName }, 'Sending content to Gemini for translation...');
-    
-    const result = await gemini.models.generateContent({
-        model: geminiModelName,
+
+    const model = gemini.getGenerativeModel({ model: geminiModelName });
+
+    const result = await model.generateContent({
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         // Setting a high temperature is usually unnecessary for translation
-        config: {
+        generationConfig: {
           temperature: 0.2,
           // Max output should be high enough for the whole translated file
           maxOutputTokens: 8192, 
         }
     });
     
-    const translatedText = result.response.text.trim();
+    const translatedText = result.response.text();
     
     if (!translatedText) {
         throw new Error('Gemini returned an empty response.');

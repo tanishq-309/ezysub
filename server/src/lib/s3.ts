@@ -1,5 +1,5 @@
 import { S3Client } from '@aws-sdk/client-s3';
-import { env } from '../config/env.js';
+import { env } from '../config/env.ts';
 
 // creating a shared s3client
 export const s3Client = new S3Client({
