@@ -1,0 +1,37 @@
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  credits   Int      @default(10)
+  jobs      Job[]
+  createdAt DateTime @default(now())
+}
+
+model Job {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  originalFileKey String
+  translatedFileKey String?
+  sourceLang      String
+  targetLang      String
+  modelUsed       String   // e.g., "gemini-1.5-flash"
+  status          JobStatus @default(PENDING)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+enum JobStatus {
+  PENDING
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
